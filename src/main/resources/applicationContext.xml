@@ -10,6 +10,14 @@
     <!-- Définition du bean dao2 -->
     <bean id="dao2" class="dao.DaoImpl2"></bean>
 
+    <!---->
+
+    <bean id="daoFile" class="dao.DaoFile"></bean>
+
+    <bean id="daoApi" class="dao.DaoApi"></bean>
+
+
+
     <!-- Définition du bean metier avec injection de dépendance -->
     <bean id="metier" class="metier.MetierImpl">
         <!-- Injection par setter -->

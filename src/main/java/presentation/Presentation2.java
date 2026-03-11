@@ -1,25 +1,29 @@
+// presentation/Presentation2.java
 package presentation;
 
 import metier.IMetier;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 
 @Configuration
-@ComponentScan(basePackages = {"dao", "metier"})
+@ComponentScan(basePackages = {"dao","metier","config"})
 public class Presentation2 {
     public static void main(String[] args) {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 
-        // Création du contexte Spring avec activation du profil "dev"
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.getEnvironment().setActiveProfiles("dev");  // Active le profil "dev"
-        context.register(Presentation2.class);
-        context.refresh();
+        // Choix 1 (profils) : décommenter un profil pour tester
+         ctx.getEnvironment().setActiveProfiles("dev");   // -> DaoImpl2 (160) => 320
+         ctx.getEnvironment().setActiveProfiles("prod");  // -> DaoImpl  (100) => 200
+          ctx.getEnvironment().setActiveProfiles("file");  // -> DaoFile  (180) => 360
+          ctx.getEnvironment().setActiveProfiles("api");   // -> DaoApi   (220) => 440
 
-        // La récupération du bean IMetier
-        IMetier metier = context.getBean(IMetier.class);
+        // Choix 2 (propriété externe) : laisser les profils vides,
+        // PropertyDrivenConfig créera un bean "dao" selon app.properties
 
-        // L'exécution et l'affichage du résultat
-        System.out.println(" Result = " + metier.calculate());
+        ctx.register(Presentation2.class);
+        ctx.refresh();
+
+        IMetier metier = ctx.getBean(IMetier.class);
+        System.out.println(" Résultat = " + metier.calculate());
+        ctx.close();
     }
 }

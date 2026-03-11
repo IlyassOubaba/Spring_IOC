@@ -39,5 +39,18 @@
           <version>4.13.2</version>
           <scope>test</scope>
       </dependency>
+
+      <dependency>
+          <groupId>javax.annotation</groupId>
+          <artifactId>javax.annotation-api</artifactId>
+          <version>1.3.2</version>
+          <scope>provided</scope> <!-- ou <scope>compile</scope> selon votre contexte -->
+      </dependency>
+      <dependency>
+          <groupId>org.junit.jupiter</groupId>
+          <artifactId>junit-jupiter</artifactId>
+          <version>RELEASE</version>
+          <scope>compile</scope>
+      </dependency>
   </dependencies>
 </project>
